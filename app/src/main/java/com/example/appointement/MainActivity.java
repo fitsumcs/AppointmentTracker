@@ -47,27 +47,24 @@ public class MainActivity extends AppCompatActivity {
         newTableRow.setLayoutParams(lp);
 
         TextView txtvName = new TextView(this);
-        txtvName.setLayoutParams(lp);
-        txtvName.setGravity(Gravity.LEFT);
+       // txtvName.setLayoutParams(lp);
         txtvName.setText(appointmentArrayList.get(arrayListCounter).name);
         txtvName.setWidth(140);
-        txtvName.setTextSize(12);
+        txtvName.setTextAppearance(R.style.textViewStyle);
 
         TextView txtvType = new TextView(this);
-        txtvType.setLayoutParams(lp);
-        txtvType.setGravity(Gravity.LEFT);
+        //txtvType.setLayoutParams(lp);
         txtvType.setText(appointmentArrayList.get(arrayListCounter).type);
         txtvType.setWidth(93);
-        txtvType.setTextSize(12);
+        txtvType.setTextAppearance(R.style.textViewStyle);
+
 
 
         TextView txtvDate = new TextView(this);
-        txtvDate.setLayoutParams(lp);
-        txtvDate.setGravity(Gravity.LEFT);
+       // txtvDate.setLayoutParams(lp);
         txtvDate.setText(new MyHelper().SetToDateAndTime(appointmentArrayList.get(arrayListCounter)));
         txtvDate.setWidth(97);
-        txtvDate.setTextSize(12);
-//        txtvDate.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        txtvDate.setTextAppearance(R.style.textViewStyle);
 
         newTableRow.addView(txtvName);
         newTableRow.addView(txtvType);
