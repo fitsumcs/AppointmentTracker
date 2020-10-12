@@ -128,6 +128,9 @@ public class addAppointement extends AppCompatActivity {
         return null;
     }
 
+      public void cancle(View v){
+        finish();
+      }
 
 
 }
