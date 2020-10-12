@@ -4,7 +4,7 @@
     <string name="type">Type</string>
     <string name="date">Date/Time</string>
     <string name="addAppointement">Add Appointement</string>
-    <string name="title_activity_add_appointement">addAppointement</string>
+    <string name="title_activity_add_appointement">Add Appointement</string>
     <string name="cancle">Cancle</string>
 
     <string-array name="type">
