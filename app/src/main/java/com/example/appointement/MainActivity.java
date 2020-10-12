@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         TextView txtvDate = new TextView(this);
         txtvDate.setLayoutParams(lp);
         txtvDate.setGravity(Gravity.LEFT);
-        txtvDate.setText(SetToDateAndTime(appointmentArrayList.get(arrayListCounter)));
+        txtvDate.setText(new MyHelper().SetToDateAndTime(appointmentArrayList.get(arrayListCounter)));
         txtvDate.setWidth(97);
         txtvDate.setTextSize(12);
 //        txtvDate.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -74,19 +74,7 @@ public class MainActivity extends AppCompatActivity {
         newTableRow.addView(txtvDate);
         appointmentTBL.addView(newTableRow,arrayListCounter+1);
     }
-    private String SetToDateAndTime(Appointment appointment){
-        long currentDateAndTime = System.currentTimeMillis(); //Todays Date
-        SimpleDateFormat formatDate = new SimpleDateFormat("MMM d, yyyy"); //Date Format
 
-        String todaysDate = formatDate.format(currentDateAndTime); //Today's date formated
-        String passDate = appointment.theMonth +" " + appointment.theDay +", " + appointment.theYear; //Tasks date formated the same way
-
-        if(Objects.equals(todaysDate, passDate)){ //Compare today's date and passed date, return time if dates match
-            return appointment.theHoure +":" +appointment.theMinute +" " +appointment.format_AM_PM;
-        }
-        return appointment.theMonth +" " + appointment.theDay +", " + appointment.theYear; //Otherwise, return the date
-
-    }
 
     @Override
     //Returns information passed from addAppointmentactivity
