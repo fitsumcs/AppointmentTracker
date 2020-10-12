@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -53,21 +56,14 @@ public class addAppointement extends AppCompatActivity {
         theMinute = c.get(Calendar.MINUTE);
 
         // set current time into textview
-        txTime.setText(new StringBuilder().append(pad(theHoure))
-                .append(":").append(pad(theMinute)));
+        txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
+                .append(":").append(new MyHelper().pad(theMinute)));
 
         // set current date into textview
         txDate.setText(new StringBuilder()
                 // Month is 0 based, just add 1
                 .append(theMonth + 1).append("-").append(theDay).append("-")
                 .append(theYear).append(" "));
-    }
-
-    private String pad(int c) {
-        if (c >= 10)
-            return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
     }
 
 
@@ -109,8 +105,8 @@ public class addAppointement extends AppCompatActivity {
             theMinute = selectedMinute;
 
             // set current time into textview
-            txTime.setText(new StringBuilder().append(pad(theHoure))
-                    .append(":").append(pad(theMinute)));
+            txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
+                    .append(":").append(new MyHelper().pad(theMinute)));
         }
     };
     //Displays a new dialog for date picker or time picker
@@ -127,10 +123,40 @@ public class addAppointement extends AppCompatActivity {
         }
         return null;
     }
-
+     //canlce button
       public void cancle(View v){
         finish();
       }
+
+      //add button
+    public  void  add(View v)
+    {
+        EditText editAppointmentName = (EditText) findViewById(R.id.edNameAp);
+        Spinner spinnerAppointmentType = (Spinner) findViewById(R.id.spTypeAp);
+        if(!(editAppointmentName.getText().toString()).isEmpty()){
+            Intent intent = new Intent();
+
+            intent.putExtra("name", editAppointmentName.getText().toString());
+
+            intent.putExtra("type", spinnerAppointmentType.getSelectedItem().toString());
+
+            intent.putExtra("monthOfYear", new MyHelper().DisplayTheMonthInCharacters(theMonth));
+            intent.putExtra("dayOfMonth", theDay);
+            intent.putExtra("year", theYear);
+
+            intent.putExtra("hour", new MyHelper().FormatTheHour(theHoure));
+            intent.putExtra("minute", theMinute);
+            intent.putExtra("AMorPM", new MyHelper().AMorPM(theHoure));
+
+            setResult(RESULT_OK, intent);
+
+            finish();
+        }
+        else{
+            Toast toast = Toast.makeText(addAppointement.this, "Please enter an Appointment Title", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
 
 
 }
