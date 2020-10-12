@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Appointement</string>
+    <string name="name">Name</string>
+    <string name="type">Type</string>
+    <string name="date">Date/Time</string>
+    <string name="addAppointement">Add Appointement</string>
+    <string name="title_activity_add_appointement">addAppointement</string>
+    <string name="cancle">Cancle Appointement</string>
+
+    <string-array name="type">
+        <item>Personal</item>
+        <item>School</item>
+        <item>Work</item>
+        <item>Health</item>
+        <item>Other</item>
+    </string-array>
 </resources>
