@@ -11,7 +11,7 @@ public class Appointment {
     public int theMinute;
     public String format_AM_PM;
 
-    public Appointment(String name, String type, String theMonth,int theYear, int theDay, int theHoure, int theMinute, String format_AM_PM) {
+    public Appointment(String name, String type, String theMonth,int theDay,int theYear, int theHoure, int theMinute, String format_AM_PM) {
         this.name = name;
         this.type = type;
         this.theYear = theYear;
