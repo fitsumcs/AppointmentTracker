@@ -42,6 +42,44 @@ public class addAppointement extends AppCompatActivity {
         setContentView(R.layout.activity_add_appointement);
         setDateInstance();
     }
+    //on  save instance
+   @Override
+    //Saves the currently Selected Date and Time
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("Month", theMonth);
+        outState.putInt("Day", theDay);
+        outState.putInt("Year", theYear);
+
+        outState.putInt("Hour", theHoure);
+        outState.putInt("Minute", theMinute);
+    }
+   //on save restored
+   protected void onRestoreInstanceState(Bundle savedInstanceState) {
+       super.onRestoreInstanceState(savedInstanceState);
+
+       theMonth = savedInstanceState.getInt("Month");
+       theDay = savedInstanceState.getInt("Day");
+       theYear = savedInstanceState.getInt("Year");
+
+       theHoure = savedInstanceState.getInt("Hour");
+       theMinute = savedInstanceState.getInt("Minute");
+       txDate = (TextView)findViewById(R.id.tvDateAp);
+       txTime = (TextView)findViewById(R.id.tvTimeAp);
+
+
+       // set current time into textview
+       txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
+               .append(":").append(new MyHelper().pad(theMinute)));
+
+       // set current date into textview
+       txDate.setText(new StringBuilder()
+               // Month is 0 based, just add 1
+               .append(theMonth + 1).append("-").append(theDay).append("-")
+               .append(theYear).append(" "));
+
+   }
 
     private void setDateInstance() {
         txDate = (TextView)findViewById(R.id.tvDateAp);
