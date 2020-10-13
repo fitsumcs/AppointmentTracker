@@ -65,25 +65,13 @@ public class addAppointement extends AppCompatActivity {
 
        theHoure = savedInstanceState.getInt("Hour");
        theMinute = savedInstanceState.getInt("Minute");
-       txDate = (TextView)findViewById(R.id.tvDateAp);
-       txTime = (TextView)findViewById(R.id.tvTimeAp);
+       saveData(theHoure,theMinute,theMonth,theDay,theYear);
 
-
-       // set current time into textview
-       txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
-               .append(":").append(new MyHelper().pad(theMinute)));
-
-       // set current date into textview
-       txDate.setText(new StringBuilder()
-               // Month is 0 based, just add 1
-               .append(theMonth + 1).append("-").append(theDay).append("-")
-               .append(theYear).append(" "));
 
    }
 
     private void setDateInstance() {
-        txDate = (TextView)findViewById(R.id.tvDateAp);
-        txTime = (TextView)findViewById(R.id.tvTimeAp);
+
 
         final Calendar c = Calendar.getInstance();
         theYear = c.get(Calendar.YEAR);
@@ -92,6 +80,16 @@ public class addAppointement extends AppCompatActivity {
 
         theHoure = c.get(Calendar.HOUR_OF_DAY);
         theMinute = c.get(Calendar.MINUTE);
+
+        saveData(theHoure,theMinute,theMonth,theDay,theYear);
+    }
+
+    //save data
+    private  void saveData(int theHoure,int theMinute,int theMonth,int theDay,int theYear)
+    {
+        txDate = (TextView)findViewById(R.id.tvDateAp);
+        txTime = (TextView)findViewById(R.id.tvTimeAp);
+
 
         // set current time into textview
         txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
@@ -103,7 +101,6 @@ public class addAppointement extends AppCompatActivity {
                 .append(theMonth + 1).append("-").append(theDay).append("-")
                 .append(theYear).append(" "));
     }
-
 
    //show date picker
     public void showDate(View v){
