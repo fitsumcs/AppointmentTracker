@@ -42,6 +42,17 @@ public class AddFragment  extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+        }
+
+        setDateInstance();
+
+
+    }
 
 
 
@@ -74,37 +85,37 @@ public class AddFragment  extends Fragment {
 //
 //    }
 //
-//    private void setDateInstance() {
-//
-//
-//        final Calendar c = Calendar.getInstance();
-//        theYear = c.get(Calendar.YEAR);
-//        theMonth = c.get(Calendar.MONTH);
-//        theDay = c.get(Calendar.DAY_OF_MONTH);
-//
-//        theHoure = c.get(Calendar.HOUR_OF_DAY);
-//        theMinute = c.get(Calendar.MINUTE);
-//
-//        saveData(theHoure,theMinute,theMonth,theDay,theYear);
-//    }
-//
-//    //save data
-//    private  void saveData(int theHoure,int theMinute,int theMonth,int theDay,int theYear)
-//    {
-//        txDate = (TextView)findViewById(R.id.tvDateAp);
-//        txTime = (TextView)findViewById(R.id.tvTimeAp);
-//
-//
-//        // set current time into textview
-//        txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
-//                .append(":").append(new MyHelper().pad(theMinute)));
-//
-//        // set current date into textview
-//        txDate.setText(new StringBuilder()
-//                // Month is 0 based, just add 1
-//                .append(theMonth + 1).append("-").append(theDay).append("-")
-//                .append(theYear).append(" "));
-//    }
+    private void setDateInstance() {
+
+
+        final Calendar c = Calendar.getInstance();
+        theYear = c.get(Calendar.YEAR);
+        theMonth = c.get(Calendar.MONTH);
+        theDay = c.get(Calendar.DAY_OF_MONTH);
+
+        theHoure = c.get(Calendar.HOUR_OF_DAY);
+        theMinute = c.get(Calendar.MINUTE);
+
+        saveData(theHoure,theMinute,theMonth,theDay,theYear);
+    }
+
+    //save data
+    private  void saveData(int theHoure,int theMinute,int theMonth,int theDay,int theYear)
+    {
+        txDate = (TextView)getActivity().findViewById(R.id.tvDateAp);
+        txTime = (TextView)getActivity().findViewById(R.id.tvTimeAp);
+
+
+        // set current time into textview
+        txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
+                .append(":").append(new MyHelper().pad(theMinute)));
+
+        // set current date into textview
+        txDate.setText(new StringBuilder()
+                // Month is 0 based, just add 1
+                .append(theMonth + 1).append("-").append(theDay).append("-")
+                .append(theYear).append(" "));
+    }
 //
 //    //show date picker
 //    public void showDate(View v){
