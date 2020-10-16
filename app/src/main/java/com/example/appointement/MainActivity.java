@@ -1,6 +1,7 @@
 package com.example.appointement;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,25 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
         setContentView(R.layout.activity_main);
 
 
+    }
+
+    @Override
+    //Returns information passed from addAppointmentactivity
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                MainFragment myFragment = (MainFragment) fragmentManager.findFragmentById(R.id.mainFragment);
+
+                Appointment myAppointment = new Appointment(
+                        data.getStringExtra("name"),data.getStringExtra("type"),
+                        data.getStringExtra("monthOfYear"), data.getIntExtra("dayOfMonth", 0), data.getIntExtra("year", 1111),
+                        data.getIntExtra("hour", 11),data.getIntExtra("minute", 11),data.getStringExtra("AMorPM"));
+
+                myFragment.updateAppointmentListAndDisplay(myAppointment);
+            }
+        }
     }
 
     @Override

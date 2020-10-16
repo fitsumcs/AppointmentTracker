@@ -55,6 +55,12 @@ public class MainFragment extends Fragment {
         fillDummyData();
     }
 
+    public void updateAppointmentListAndDisplay(Appointment myAppointment) {
+
+        appointmentArrayList.add(myAppointment);
+        populateTable(appointmentArrayList.size()-1);
+    }
+
     public interface OnItemSelectedListener {
         public void onButtonSelected();
     }
