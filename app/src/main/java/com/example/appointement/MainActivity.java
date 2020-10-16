@@ -69,6 +69,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
     @Override
     public void onAddAppointmentSelected(Appointment appt) {
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        myFragment.updateAppointmentList(appt);
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.myContainer, myFragment);
+        ft.commit();
+
     }
 
     @Override

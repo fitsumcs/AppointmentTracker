@@ -1,7 +1,6 @@
 package com.example.appointement;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,32 +51,28 @@ public class MainFragment extends Fragment {
         if (bundle != null) {
         }
 
-        fillDummyData();
+        populateElement();
+
     }
 
-    public void updateAppointmentListAndDisplay(Appointment myAppointment) {
+    private void populateElement() {
+        for(int i = 0; i < appointmentArrayList.size(); i++){
+            populateTable(i);
+        }
+    }
 
-        appointmentArrayList.add(myAppointment);
-        populateTable(appointmentArrayList.size()-1);
+
+
+    public void updateAppointmentList(Appointment appt)
+    {
+        appointmentArrayList.add(appt);
     }
 
     public interface OnItemSelectedListener {
         public void onButtonSelected();
     }
 
-    private void fillDummyData() {
-        appointmentArrayList.add(new Appointment("Doctors Visit","Health", "Oct", 9, 2016, 9, 00, "AM"));
-        appointmentArrayList.add(new Appointment("Hair Cut appointment","Personal","Oct", 10, 2016,9,30,"AM"));
-        appointmentArrayList.add(new Appointment("Meeting with Accountant","Personal","Oct", 11, 2016,11,00,"AM"));
-        appointmentArrayList.add(new Appointment("Boss/HR Meeting","Work","Oct", 12, 2016,2,30,"PM"));
-        appointmentArrayList.add(new Appointment("Teacher Conference","School","Nov", 1, 2016,9,30,"AM"));
-        appointmentArrayList.add(new Appointment("Dentist For Son","Health","Nov", 1, 2016,9,30,"AM"));
-        appointmentArrayList.add(new Appointment("Dinner With Friends","Other","Nov", 1, 2016,9,30,"AM"));
 
-        for(int i = 0; i < appointmentArrayList.size(); i++){
-            populateTable(i);
-        }
-    }
 
     private void populateTable(int arrayListCounter) {
         TableLayout appointmentTBL = (TableLayout) getActivity().findViewById(R.id.tbList);
