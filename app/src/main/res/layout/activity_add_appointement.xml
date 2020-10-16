@@ -1,98 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
-
-    <EditText
-        android:id="@+id/edNameAp"
+    <fragment
+        android:id="@+id/addAppointmentFragment"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="25dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Appointment Title"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/spTypeAp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        class="com.example.appointement.AddFragment">
+    </fragment>
 
-    <Spinner
-        android:id="@+id/spTypeAp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="54dp"
-        android:entries="@array/type"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/tvDateAp"
-        app:layout_constraintEnd_toEndOf="@+id/edNameAp"
-        app:layout_constraintStart_toStartOf="@+id/tvTimeAp"
-        app:layout_constraintTop_toBottomOf="@+id/edNameAp" />
-
-    <TextView
-        android:id="@+id/tvDateAp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="46dp"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:onClick="showDate"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvTimeAp"
-        app:layout_constraintEnd_toEndOf="@+id/tvTimeAp"
-        app:layout_constraintStart_toStartOf="@+id/spTypeAp"
-        app:layout_constraintTop_toBottomOf="@+id/spTypeAp" />
-
-    <TextView
-        android:id="@+id/tvTimeAp"
-        android:layout_width="270dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginBottom="63dp"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:onClick="showTime"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btAddAp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDateAp" />
-
-    <Button
-        android:id="@+id/btCancleAp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="21dp"
-        android:background="@drawable/roundedbutton"
-        android:onClick="cancle"
-        android:text="@string/cancle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btAddAp"
-        app:layout_constraintStart_toStartOf="@+id/tvTimeAp"
-        app:layout_constraintTop_toBottomOf="@+id/btAddAp" />
-
-    <Button
-        android:id="@+id/btAddAp"
-        android:layout_width="257dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginBottom="34dp"
-        android:background="@drawable/roundedbutton"
-        android:onClick="add"
-        android:text="@string/addAppointement"
-        app:layout_constraintBottom_toTopOf="@+id/btCancleAp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTimeAp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
