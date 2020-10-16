@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnItemSelectedListener, AddFragment.OnItemSelectedListener {
 
 
     MainFragment myFragment;
@@ -59,7 +59,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
     @Override
     public void onButtonSelected() {
 
-            //startActivityForResult(new Intent(this,addAppointement.class),1);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.myContainer, new AddFragment());
+        ft.commit();
+
+    }
+
+    @Override
+    public void onAddAppointmentSelected(Appointment appt) {
 
     }
 
