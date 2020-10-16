@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
@@ -84,6 +85,22 @@ public class AddFragment  extends Fragment {
 
         setDateInstance();
 
+        TextView time = (TextView) getActivity().findViewById(R.id.tvTimeAp);
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker();
+            }
+        });
+
+        TextView date = (TextView) getActivity().findViewById(R.id.tvDateAp);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
+
 
     }
     @Override
@@ -100,35 +117,61 @@ public class AddFragment  extends Fragment {
         public void onAddAppointmentSelected(Appointment appt);
     }
 
+    private void showDatePicker() {
+        DatePickerFragment date = new DatePickerFragment();
 
-//    //on  save instance
-//    @Override
-//    //Saves the currently Selected Date and Time
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        outState.putInt("Month", theMonth);
-//        outState.putInt("Day", theDay);
-//        outState.putInt("Year", theYear);
-//
-//        outState.putInt("Hour", theHoure);
-//        outState.putInt("Minute", theMinute);
-//    }
-//    //on save restored
-//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//
-//        theMonth = savedInstanceState.getInt("Month");
-//        theDay = savedInstanceState.getInt("Day");
-//        theYear = savedInstanceState.getInt("Year");
-//
-//        theHoure = savedInstanceState.getInt("Hour");
-//        theMinute = savedInstanceState.getInt("Minute");
-//        saveData(theHoure,theMinute,theMonth,theDay,theYear);
-//
-//
-//    }
-//
+        Bundle args = new Bundle();
+        args.putInt("year", theYear);
+        args.putInt("month", theMonth);
+        args.putInt("day", theDay);
+        date.setArguments(args);
+
+        date.setCallBack(ondate);
+        date.show(getFragmentManager(), "Date Picker");
+    }
+
+    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth,
+                              int selectedDay) {
+
+            theYear = selectedYear;
+            theMonth = selectedMonth;
+            theDay = selectedDay;
+
+            txDate.setText(new StringBuilder().append(theMonth + 1)
+                    .append("-").append(theDay).append("-").append(theYear)
+                    .append(" "));
+        }
+    };
+
+    private void showTimePicker() {
+        TimePickerFragment time = new TimePickerFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("hour", theHoure);
+        args.putInt("minute", theMinute);
+        time.setArguments(args);
+
+        time.setCallBack(onTime);
+        time.show(getFragmentManager(), "Time Picker");
+    }
+
+    TimePickerDialog.OnTimeSetListener onTime = new TimePickerDialog.OnTimeSetListener() {
+
+        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+            theHoure = selectedHour;
+            theMinute = selectedMinute;
+
+            // set current time into textview
+            txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
+                    .append(":").append(new MyHelper().pad(theMinute)));
+        }
+    };
+
+
+
+
     private void setDateInstance() {
 
 
@@ -160,96 +203,53 @@ public class AddFragment  extends Fragment {
                 .append(theMonth + 1).append("-").append(theDay).append("-")
                 .append(theYear).append(" "));
     }
-//
-//    //show date picker
-//    public void showDate(View v){
-//
-//
-//        showDialog(DATE_DIALOG_ID);
-//
-//    }
-//
-//    //show time picker
-//    public void showTime(View v){
-//
-//        showDialog(TIME_DIALOG_ID);
-//
-//    }
-//    private DatePickerDialog.OnDateSetListener datePickerListener
-//            = new DatePickerDialog.OnDateSetListener() {
-//
-//        // when dialog box is closed, below method will be called.
-//        public void onDateSet(DatePicker view, int selectedYear,
-//                              int selectedMonth, int selectedDay) {
-//            theYear = selectedYear;
-//            theMonth = selectedMonth;
-//            theDay = selectedDay;
-//
-//            // set selected date into textview
-//            txDate.setText(new StringBuilder().append(theMonth + 1)
-//                    .append("-").append(theDay).append("-").append(theYear)
-//                    .append(" "));
-//        }
-//    };
-//    //Time picker var
-//    private TimePickerDialog.OnTimeSetListener timePickerListener
-//            = new TimePickerDialog.OnTimeSetListener() {
-//        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-//            theHoure = selectedHour;
-//            theMinute = selectedMinute;
-//
-//            // set current time into textview
-//            txTime.setText(new StringBuilder().append(new MyHelper().pad(theHoure))
-//                    .append(":").append(new MyHelper().pad(theMinute)));
-//        }
-//    };
-//    //Displays a new dialog for date picker or time picker
-//    @Override
-//    protected Dialog onCreateDialog(int id) {
-//        switch (id) {
-//            case DATE_DIALOG_ID:
-//                return new DatePickerDialog(this,
-//                        datePickerListener, theYear, theMonth,theDay);
-//            case TIME_DIALOG_ID:
-//                // set time picker as current time
-//                return new TimePickerDialog(this,
-//                        timePickerListener, theHoure, theMinute,false);
-//        }
-//        return null;
-//    }
-//    //canlce button
-//    public void cancle(View v){
-//        finish();
-//    }
-//
-//    //add button
-//    public  void  add(View v)
-//    {
-//        EditText editAppointmentName = (EditText) findViewById(R.id.edNameAp);
-//        Spinner spinnerAppointmentType = (Spinner) findViewById(R.id.spTypeAp);
-//        if(!(editAppointmentName.getText().toString()).isEmpty()){
-//            Intent intent = new Intent();
-//
-//            intent.putExtra("name", editAppointmentName.getText().toString());
-//
-//            intent.putExtra("type", spinnerAppointmentType.getSelectedItem().toString());
-//
-//            intent.putExtra("monthOfYear", new MyHelper().DisplayTheMonthInCharacters(theMonth));
-//            intent.putExtra("dayOfMonth", theDay);
-//            intent.putExtra("year", theYear);
-//
-//            intent.putExtra("hour", new MyHelper().FormatTheHour(theHoure));
-//            intent.putExtra("minute", theMinute);
-//            intent.putExtra("AMorPM", new MyHelper().AMorPM(theHoure));
-//
-//            setResult(RESULT_OK, intent);
-//
-//            finish();
-//        }
-//        else{
-//            Toast toast = Toast.makeText(addAppointement.this, "Please enter an Appointment Title", Toast.LENGTH_SHORT);
-//            toast.show();
-//        }
-//    }
+
+
+    public static class DatePickerFragment extends DialogFragment {
+        DatePickerDialog.OnDateSetListener ondateSet;
+        private int year, month, day;
+
+        public DatePickerFragment() {}
+
+        public void setCallBack(DatePickerDialog.OnDateSetListener ondate) {
+            ondateSet = ondate;
+        }
+
+        @Override
+        public void setArguments(Bundle args) {
+            super.setArguments(args);
+            year = args.getInt("year");
+            month = args.getInt("month");
+            day = args.getInt("day");
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            return new DatePickerDialog(getActivity(), ondateSet, year, month, day);
+        }
+    }
+
+    public static class TimePickerFragment extends DialogFragment {
+        TimePickerDialog.OnTimeSetListener onTimeSet;
+        private int hour, minute;
+
+        public TimePickerFragment() {}
+
+        public void setCallBack(TimePickerDialog.OnTimeSetListener ontime) {
+            onTimeSet = ontime;
+        }
+
+        @Override
+        public void setArguments(Bundle args) {
+            super.setArguments(args);
+            hour = args.getInt("hour");
+            minute = args.getInt("minute");
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            return new TimePickerDialog(getActivity(), onTimeSet, hour, minute, false);
+        }
+    }
 
 }
