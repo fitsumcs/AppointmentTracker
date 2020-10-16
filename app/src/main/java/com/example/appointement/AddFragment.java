@@ -48,7 +48,7 @@ public class AddFragment  extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().finish();
+                listener.onCancel();
             }
         });
       //add appointment
@@ -115,6 +115,7 @@ public class AddFragment  extends Fragment {
     }
     public interface OnItemSelectedListener {
         public void onAddAppointmentSelected(Appointment appt);
+        public void onCancel();
     }
 
     private void showDatePicker() {

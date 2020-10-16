@@ -71,6 +71,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
 
     }
 
+    @Override
+    public void onCancel() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.myContainer, myFragment);
+        ft.commit();
+    }
+
 //    @Override
 //    //Returns information passed from addAppointmentactivity
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
