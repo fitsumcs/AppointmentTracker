@@ -1,5 +1,6 @@
 package com.example.appointement;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,13 +19,32 @@ public class MainFragment extends Fragment {
 
     public ArrayList<Appointment> appointmentArrayList = new ArrayList<Appointment>();
 
+    private OnItemSelectedListener listener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
+        Button b = (Button)view.findViewById(R.id.btAddMa);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onButtonSelected();
+            }
+        });
         return view;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnItemSelectedListener) {
+            listener = (OnItemSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implemenet MyListFragment.OnItemSelectedListener");
+        }
+    }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -34,6 +54,11 @@ public class MainFragment extends Fragment {
 
         fillDummyData();
     }
+
+    public interface OnItemSelectedListener {
+        public void onButtonSelected();
+    }
+
     private void fillDummyData() {
         appointmentArrayList.add(new Appointment("Doctors Visit","Health", "Oct", 9, 2016, 9, 00, "AM"));
         appointmentArrayList.add(new Appointment("Hair Cut appointment","Personal","Oct", 10, 2016,9,30,"AM"));
@@ -83,9 +108,7 @@ public class MainFragment extends Fragment {
 
 
 
-    public void addAppointement(View view) {
-        //startActivityForResult(new Intent(this,addAppointement.class),1);
-    }
+
 
 
 
