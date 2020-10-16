@@ -3,6 +3,7 @@ package com.example.appointement;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,6 +36,9 @@ public class AddFragment  extends Fragment {
     static  final  int DATE_DIALOG_ID = 999;
     static  final  int TIME_DIALOG_ID = 998;
 
+    private AddFragment.OnItemSelectedListener listener;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add, container, false);
 
@@ -46,6 +50,27 @@ public class AddFragment  extends Fragment {
                 getActivity().finish();
             }
         });
+      //add appointment
+        Button addTask = (Button)view.findViewById(R.id.btAddAp);
+        addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText editAppointmentName = (EditText) getActivity().findViewById(R.id.edNameAp);
+                Spinner spinnerAppointmentType = (Spinner) getActivity().findViewById(R.id.spTypeAp);
+                if(!(editAppointmentName.getText().toString()).isEmpty()){
+
+                    Appointment app = new Appointment(editAppointmentName.getText().toString(), spinnerAppointmentType.getSelectedItem().toString(),
+                            new MyHelper().DisplayTheMonthInCharacters(theMonth), theDay, theYear, new MyHelper().FormatTheHour(theHoure), theMinute, new MyHelper().AMorPM(theHoure));
+
+                    listener.onAddAppointmentSelected(app);
+                }
+                else {
+                    Toast toast = Toast.makeText(getActivity(), "Please enter an Appointment Name", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
 
         return view;
     }
@@ -61,8 +86,19 @@ public class AddFragment  extends Fragment {
 
 
     }
-
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof AddFragment.OnItemSelectedListener) {
+            listener = (AddFragment.OnItemSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implemenet MyListFragment.OnItemSelectedListener");
+        }
+    }
+    public interface OnItemSelectedListener {
+        public void onAddAppointmentSelected(Appointment appt);
+    }
 
 
 //    //on  save instance

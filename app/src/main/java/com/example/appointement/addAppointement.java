@@ -20,7 +20,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 
-public class addAppointement extends AppCompatActivity {
+public class addAppointement extends AppCompatActivity implements AddFragment.OnItemSelectedListener {
 
 
 
@@ -32,4 +32,24 @@ public class addAppointement extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onAddAppointmentSelected(Appointment appt) {
+        Intent intent = new Intent();
+
+            intent.putExtra("name", appt.name);
+
+            intent.putExtra("type", appt.type);
+
+            intent.putExtra("monthOfYear", appt.theMonth);
+            intent.putExtra("dayOfMonth", appt.theDay);
+            intent.putExtra("year", appt.theYear);
+
+            intent.putExtra("hour", appt.theHoure);
+            intent.putExtra("minute", appt.theMinute);
+            intent.putExtra("AMorPM", appt.format_AM_PM);
+
+            setResult(RESULT_OK, intent);
+
+            finish();
+    }
 }
